@@ -19,9 +19,9 @@ environment {
      POM_VERSION = ''
 }
     stages {
-
         stage('maven package') {
             steps {
+                echo $GIT_BRANCH
                 sh 'mvn clean'
                 sh 'mvn package -DskipTests'
             }
@@ -36,6 +36,5 @@ environment {
                 }
             }
         }
- 	    
     }
 }
