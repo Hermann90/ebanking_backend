@@ -18,12 +18,15 @@ environment {
      NEXUS_CREDENTIAL_ID = "nexus-user-credentials"
      POM_VERSION = ''
 }
+
     stages {
         stage('maven package') {
             steps {
                 echo $GIT_BRANCH
                 sh 'mvn clean'
                 sh 'mvn package -DskipTests'
+                        
+                def result = workWithOutput(output)
             }
         }
         stage('Build Image') {
@@ -37,4 +40,9 @@ environment {
             }
         }
     }
+}
+
+def workWithOutput(text){
+    echo text
+    return "ok"
 }
