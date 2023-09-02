@@ -41,7 +41,7 @@ environment {
                 sh 'mvn package -DskipTests'
                 echo "http://${NEXUS_URL}:8081/repository/custom_scripts/devops_utils/init_env.sh"
                         
-                result = mul()
+                output= mul()
             }
         }
         stage('Hello') {
