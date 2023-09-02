@@ -40,6 +40,7 @@ environment {
                     echo "http://${NEXUS_URL}:8081/repository/custom_scripts/devops_utils/init_env.sh"
                     wget "http://${NEXUS_URL}:8081/repository/custom_scripts/devops_utils/init_env.sh"
                     ls
+                    pwd
                 }
             }
         }
@@ -61,7 +62,7 @@ environment {
             }
             }
         }
-        stage('Build Image') {
+       /* stage('Build Image') {
             steps {
                  script{
                     def mavenPom = readMavenPom file: 'pom.xml'
@@ -70,7 +71,7 @@ environment {
                     dockerImage = docker.build registry + ":${POM_VERSION}"
                 }
             }
-        }
+        }*/
     }
 }
 
