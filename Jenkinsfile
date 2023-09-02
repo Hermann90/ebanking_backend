@@ -39,7 +39,7 @@ environment {
                 script{
                     echo "http://${NEXUS_URL}:8081/repository/custom_scripts/devops_utils/init_env.sh"
                     sh '''#!/bin/bash
-                    wget "http://${NEXUS_URL}:8081/repository/custom_scripts/devops_utils/init_env.sh"
+                    wget "http://${NEXUS_URL}/repository/custom_scripts/devops_utils/init_env.sh"
                     ls
                     pwd'''
                 }
