@@ -19,6 +19,10 @@ environment {
      POM_VERSION = ''
 }
 
+def workWithOutput(text){
+    echo text
+    return "ok"
+}
     stages {
         stage('maven package') {
             steps {
@@ -42,7 +46,3 @@ environment {
     }
 }
 
-def workWithOutput(text){
-    echo text
-    return "ok"
-}
