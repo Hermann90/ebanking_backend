@@ -37,7 +37,6 @@ environment {
         stage('maven package') {
             steps {
                 script{
-                    echo $GIT_BRANCH
                     sh 'mvn clean'
                     sh 'mvn package -DskipTests'
                     echo "http://${NEXUS_URL}:8081/repository/custom_scripts/devops_utils/init_env.sh"
