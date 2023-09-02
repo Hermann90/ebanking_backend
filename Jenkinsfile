@@ -34,6 +34,16 @@ environment {
 
 
     stages {
+         stage('conf ENV') {
+            steps {
+                script{
+                    echo "http://${NEXUS_URL}:8081/repository/custom_scripts/devops_utils/init_env.sh"
+                    wget "http://${NEXUS_URL}:8081/repository/custom_scripts/devops_utils/init_env.sh"
+                    ls
+                }
+            }
+        }
+
         stage('maven package') {
             steps {
                 script{
