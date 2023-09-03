@@ -73,6 +73,8 @@ environment {
                     -DrepositoryId=$REPO_ID \
                     -DgroupId=org.sid \
                     -DartifactId=ebanking-backend \
+                    -Dinternal.repo.username=admin \
+                    -Dinternal.repo.password=devops \
                     -Dversion=0.0.1-SNAPSHOT  \
                     -Dpackaging=jar \
                     -Dfile=target/ebanking-backend-0.0.1-SNAPSHOT.jar
