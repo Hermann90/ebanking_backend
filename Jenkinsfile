@@ -69,8 +69,12 @@ environment {
         stage('Hello') {
             steps{
                 script{
-                  version= mul()
-                  echo "The mul is ${version}"
+                    def pom_xml = readMavenPom file: "pom.xml";
+                    export APP_VERSION=pom_xml.version
+
+                    echo ${APP_VERSION}
+                  output= mul()
+                  echo "The mul is ${output}"
                   sh ''' 
                     sudo cat /opt/maven/conf/settings.xml
                     export REPO_URL=http://ec2-18-237-195-147.us-west-2.compute.amazonaws.com:8081/repository/devops_utils/
@@ -80,7 +84,7 @@ environment {
                     -DrepositoryId=$REPO_ID \
                     -DgroupId=org.sid \
                     -DartifactId=ebanking-backend \
-                    -Dversion=${version}  \
+                    -Dversion=${APP_VERSION}  \
                     -Dpackaging=jar \
                     -Dfile=target/ebanking-backend-0.0.1-SNAPSHOT.jar
                   '''
