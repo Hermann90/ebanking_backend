@@ -74,8 +74,8 @@ environment {
                     -DgroupId=org.sid \
                     -DartifactId=ebanking-backend \
                     -Dversion=0.0.1-SNAPSHOT  \
-                    -Dpackaging=zip \
-                    -Dfile=ebanking-backend.zip
+                    -Dpackaging=jar \
+                    -Dfile=target/ebanking-backend-0.0.1-SNAPSHOT.jar
                   '''
             }
             }
