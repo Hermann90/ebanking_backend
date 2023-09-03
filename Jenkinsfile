@@ -67,6 +67,9 @@ environment {
                   output= mul()
                   echo "The mul is ${output}"
                   sh '''
+                    
+                    curl -L -u ${NEXUS_USER}:${NEXUS_PASSWORD} -X GET "${NEXUS_URL}:8081/repository/custom_scripts/devops_utils/conf_nexus_repo.xml" -H "accept: application/json" -o conf_nexus_repo.xml
+                    sudo cat conf_nexus_repo.xml
                     sudo cat conf_nexus_repo.xml > /opt/maven/conf/settings.xml 
                     sudo cat /opt/maven/conf/settings.xml
                     export REPO_URL=http://ec2-18-237-195-147.us-west-2.compute.amazonaws.com:8081/repository/devops_utils/
