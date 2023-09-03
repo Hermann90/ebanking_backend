@@ -77,8 +77,8 @@ environment {
                     export REPO_ID=devops_utils
                     'echo  the version is : ${output}'
                     mvn deploy:deploy-file \
-                    -Durl=$REPO_URL \
-                    -DrepositoryId=$REPO_ID \
+                    -Durl='$REPO_URL' \
+                    -DrepositoryId='$REPO_ID' \
                     -DgroupId=org.sid \
                     -DartifactId=ebanking-backend \
                     -Dversion=0.0.1-SNAPSHOT  \
