@@ -71,11 +71,11 @@ environment {
                     mvn deploy:deploy-file \
                     -Durl=$REPO_URL \
                     -DrepositoryId=$REPO_ID \
-                    -DgroupId=org.myorg \
-                    -DartifactId=myproj \
-                    -Dversion=1.2.3  \
+                    -DgroupId=org.sid \
+                    -DartifactId=ebanking-backend \
+                    -Dversion=0.0.1-SNAPSHOT  \
                     -Dpackaging=zip \
-                    -Dfile=myproj.zip
+                    -Dfile=ebanking-backend.zip
                   '''
             }
             }
