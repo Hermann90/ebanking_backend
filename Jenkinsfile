@@ -1,9 +1,10 @@
 def mul()
 {
+    def pom = readMavenPom file: "pom.xml";
    def a=2
    def b=3
    def mul=a*b
-   return mul
+   return pom.version
 }
 
 
@@ -40,9 +41,12 @@ environment {
                     echo "http://${NEXUS_URL}:8081/repository/custom_scripts/devops_utils/init_env.sh"
                     sh '''#!/bin/bash
                     #wget "http://${NEXUS_URL}/repository/custom_scripts/devops_utils/init_env.sh"
-                    curl -L -u admin:devops -X GET "http://ec2-18-237-195-147.us-west-2.compute.amazonaws.com:8081/repository/custom_scripts/devops_utils/init_env.sh" -H "accept: application/json" -o init_env.sh
+                    curl -L -u ${NEXUS_USER}:${NEXUS_PASSWORD} -X GET "${NEXUS_URL}:8081/repository/custom_scripts/devops_utils/init_env.sh" -H "accept: application/json" -o init_env.sh
+                    chmod +x init_env.sh
                     ls
-                    pwd'''
+                    ./init_env.sh
+                    printenv
+                    '''
                 }
             }
         }
