@@ -65,6 +65,18 @@ environment {
                 script{
                   output= mul()
                   echo "The mul is ${output}"
+                  sh '''
+                    export REPO_URL=http://ec2-18-237-195-147.us-west-2.compute.amazonaws.com:8081/repository/devops_utils/
+                    export REPO_ID=devops_utils
+                    mvn deploy:deploy-file \
+                    -Durl=$REPO_URL \
+                    -DrepositoryId=$REPO_ID \
+                    -DgroupId=org.myorg \
+                    -DartifactId=myproj \
+                    -Dversion=1.2.3  \
+                    -Dpackaging=zip \
+                    -Dfile=myproj.zip
+                  '''
             }
             }
         }
