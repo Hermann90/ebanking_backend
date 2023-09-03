@@ -58,9 +58,11 @@ environment {
         stage('maven package') {
             steps {
                 script{
-                    sh 'mvn clean'
-                    sh 'mvn package -DskipTests'
-                    echo "http://${NEXUS_URL}:8081/repository/custom_scripts/devops_utils/init_env.sh"
+                    sh '''sudo cat conf_nexus_repo.xml > /opt/maven/conf/settings.xml
+                    mvn clean
+                    mvn package -DskipTests
+                    echo http://${NEXUS_URL}:8081/repository/custom_scripts/devops_utils/init_env.sh
+                    '''
                 }
             }
         }
