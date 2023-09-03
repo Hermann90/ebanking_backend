@@ -71,11 +71,11 @@ environment {
                 script{
                   output= mul()
                   echo "The mul is ${output}"
-                  sh ''' 
+                  sh """ 
                     sudo cat /opt/maven/conf/settings.xml
                     export REPO_URL=http://ec2-18-237-195-147.us-west-2.compute.amazonaws.com:8081/repository/devops_utils/
                     export REPO_ID=devops_utils
-                    "echo  the version is : ${output}"
+                    'echo  the version is : ${output}'
                     mvn deploy:deploy-file \
                     -Durl=$REPO_URL \
                     -DrepositoryId=$REPO_ID \
@@ -84,7 +84,7 @@ environment {
                     -Dversion=0.0.1-SNAPSHOT  \
                     -Dpackaging=jar \
                     -Dfile=target/ebanking-backend-0.0.1-SNAPSHOT.jar
-                  '''
+                  """
             }
             }
         }
