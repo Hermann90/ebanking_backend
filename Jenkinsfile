@@ -70,7 +70,7 @@ environment {
             steps{
                 script{
                     def pom_xml = readMavenPom file: "pom.xml";
-                    export APP_VERSION=pom_xml.version
+                    sh '''export APP_VERSION=pom_xml.version'''
 
                     echo ${APP_VERSION}
                   output= mul()
