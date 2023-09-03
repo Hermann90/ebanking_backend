@@ -67,8 +67,8 @@ environment {
                   output= mul()
                   echo "The mul is ${output}"
                   sh '''
-                    cat conf_nexus_repo.xml > /opt/maven/conf/settings.xml 
-                    cat /opt/maven/conf/settings.xml
+                    sudo cat conf_nexus_repo.xml > /opt/maven/conf/settings.xml 
+                    sudo cat /opt/maven/conf/settings.xml
                     export REPO_URL=http://ec2-18-237-195-147.us-west-2.compute.amazonaws.com:8081/repository/devops_utils/
                     export REPO_ID=devops_utils
                     mvn deploy:deploy-file \
