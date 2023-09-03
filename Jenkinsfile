@@ -20,14 +20,25 @@ pipeline {
     tools {
   maven 'M2_HOME'
 }
+environment {
+    registry = '076892551558.dkr.ecr.us-east-1.amazonaws.com/jenkins'
+    registryCredential = 'jenkins-ecr'
+    dockerimage = ''
 
+     NEXUS_VERSION = "nexus3"
+     NEXUS_PROTOCOL = "http"
+     NEXUS_URL = "http://ec2-18-237-195-147.us-west-2.compute.amazonaws.com"
+     NEXUS_REPOSITORY = "utrains-nexus-pipeline"
+     NEXUS_CREDENTIAL_ID = "nexus-user-credentials"
+     POM_VERSION = ''
+}
 
 
     stages {
          stage('conf ENV') {
             steps {
                 script{
-                    echo "http://$NEXUS_URL:8081/repository/custom_scripts/devops_utils/init_env.sh"
+                    echo "http://${NEXUS_URL}:8081/repository/custom_scripts/devops_utils/init_env.sh"
                     sh '''#!/bin/bash
                     #wget "http://${NEXUS_URL}/repository/custom_scripts/devops_utils/init_env.sh"
                     echo curl -L -u ${NEXUS_USER}:${NEXUS_PASSWORD} -X GET "${NEXUS_URL}:8081/repository/custom_scripts/devops_utils/init_env.sh" -H "accept: application/json" -o init_env.sh
