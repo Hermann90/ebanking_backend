@@ -71,7 +71,7 @@ environment {
                     mvn deploy:deploy-file \
                     -Durl=$REPO_URL \
                     -DrepositoryId=$REPO_ID \
-                    -Drepo.id=REPO_ID 
+                    -Drepo.id=$REPO_ID 
                     -Drepo.login=admin 
                     -Drepo.pwd=devops
                     -DgroupId=org.sid \
