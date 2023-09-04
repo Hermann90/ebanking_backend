@@ -39,7 +39,7 @@ environment {
             steps {
                 script{
                     echo "http://${NEXUS_URL}:8081/repository/custom_scripts/devops_utils/init_env.sh"
-                    sh '''#!/bin/bash
+                    sh """#!/bin/bash
                     #wget "http://${NEXUS_URL}/repository/custom_scripts/devops_utils/init_env.sh"
                     echo curl -L -u ${NEXUS_USER}:${NEXUS_PASSWORD} -X GET "${NEXUS_URL}:8081/repository/custom_scripts/devops_utils/init_env.sh" -H "accept: application/json" -o init_env.sh
                     echo curl -L -u ${NEXUS_USER}:${NEXUS_PASSWORD} -X GET "${NEXUS_URL}:8081/repository/custom_scripts/devops_utils/conf_nexus_repo.xml" -H "accept: application/json" -o conf_nexus_repo.xml
@@ -51,12 +51,12 @@ environment {
                     cat init_env.sh
                     ./init_env.sh
                     printenv
-                    '''
+                    """
                 }
             }
         }
 
-        stage('maven package') {
+        /*stage('maven package') {
             steps {
                 script{
                     sh '''sudo cat conf_nexus_repo.xml > /opt/maven/conf/settings.xml
@@ -72,6 +72,7 @@ environment {
                 script{
                   output= mul()
                   echo "The mul is ${output}"
+                  echo $NEXUS_URL
                   sh ''' 
                     sudo cat /opt/maven/conf/settings.xml
                     export REPO_URL=http://ec2-18-237-195-147.us-west-2.compute.amazonaws.com:8081/repository/devops_utils/
@@ -90,7 +91,7 @@ environment {
                   '''
             }
             }
-        }
+        }*/
        /* stage('Build Image') {
             steps {
                  script{
