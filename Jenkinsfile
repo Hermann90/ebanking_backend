@@ -81,11 +81,13 @@ pipeline {
                     export REPO_URL=http://ec2-18-237-195-147.us-west-2.compute.amazonaws.com:8081/repository/devops_utils/
                     export REPO_ID=devops_utils
 
+                    echo $NEXUS_URL:$NEXUS_PORT/repository/$NEXUS_REPOSITORY_NAME/
+
                     echo "The mul is ${output}"
                     'echo  the version is : ${output}'
                     mvn deploy:deploy-file \
-                    -Durl=$REPO_URL \
-                    -DrepositoryId=$REPO_ID \
+                    -Durl=$NEXUS_URL:$NEXUS_PORT/repository/$NEXUS_REPOSITORY_NAME/ \
+                    -DrepositoryId=$NEXUS_REPOSITORY_NAME \
                     -DgroupId=org.sid \
                     -DartifactId=ebanking-backend \
                     -Dversion=${pom.version}  \
