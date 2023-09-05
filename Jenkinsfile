@@ -81,7 +81,6 @@ pipeline {
                     echo $NEXUS_URL:$NEXUS_PORT/repository/$NEXUS_REPOSITORY_NAME/
 
                     echo "The mul is ${output}"
-                    'echo  the version is : ${output}'
                     mvn deploy:deploy-file \
                     -Durl=$NEXUS_URL:$NEXUS_PORT/repository/$NEXUS_REPOSITORY_NAME/ \
                     -DrepositoryId=$NEXUS_REPOSITORY_NAME \
