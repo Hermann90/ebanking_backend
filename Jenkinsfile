@@ -58,7 +58,7 @@ pipeline {
             }
         }
 
-        /*stage('maven package') {
+        stage('maven package') {
             steps {
                 script{
                     sh '''sudo cat conf_nexus_repo.xml > /opt/maven/conf/settings.xml
@@ -72,10 +72,11 @@ pipeline {
         stage('Hello') {
             steps{
                 script{
-                  output= mul()
-                  echo "The mul is ${output}"
-                  echo $NEXUS_URL
-                  sh ''' 
+                    pom = readMavenPom file: "pom.xml";
+                    output= mul()
+                    echo "The mul is ${output}"
+                    echo $NEXUS_URL
+                    sh ''' 
                     sudo cat /opt/maven/conf/settings.xml
                     export REPO_URL=http://ec2-18-237-195-147.us-west-2.compute.amazonaws.com:8081/repository/devops_utils/
                     export REPO_ID=devops_utils
@@ -87,13 +88,13 @@ pipeline {
                     -DrepositoryId=$REPO_ID \
                     -DgroupId=org.sid \
                     -DartifactId=ebanking-backend \
-                    -Dversion=0.0.1-SNAPSHOT  \
+                    -Dversion=${pom.version}  \
                     -Dpackaging=jar \
                     -Dfile=target/ebanking-backend-0.0.1-SNAPSHOT.jar
                   '''
             }
             }
-        }*/
+        }
        /* stage('Build Image') {
             steps {
                  script{
