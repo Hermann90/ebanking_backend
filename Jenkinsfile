@@ -20,7 +20,7 @@ pipeline {
     tools {
   maven 'M2_HOME'
 }
-environment {
+/*environment {
     registry = '076892551558.dkr.ecr.us-east-1.amazonaws.com/jenkins'
     registryCredential = 'jenkins-ecr'
     dockerimage = ''
@@ -31,20 +31,20 @@ environment {
      NEXUS_REPOSITORY = "utrains-nexus-pipeline"
      NEXUS_CREDENTIAL_ID = "nexus-user-credentials"
      POM_VERSION = ''
-}
+}*/
 
 
     stages {
          stage('conf ENV') {
             steps {
                 script{
-                    echo "${NEXUS_URL}:8081/repository/custom_scripts/devops_utils/init_env.sh"
+                    echo "$NEXUS_URL:8081/repository/custom_scripts/devops_utils/init_env.sh"
                     sh "sudo /home/ec2-user/ebanking_backend/init_env.sh"
-                    echo "test: ${env.NEXUS_USER}"
+                    echo "test: $NEXUS_USER"
                     sh """#!/bin/bash
 
                     echo curl -L -u $NEXUS_USER:$NEXUS_PASSWORD -X GET "$NEXUS_URL:8081/repository/custom_scripts/devops_utils/init_env.sh" -H "accept: application/json" -o init_env.sh
-                    echo curl -L -u ${NEXUS_USER}:${NEXUS_PASSWORD} -X GET "$NEXUS_URL:8081/repository/custom_scripts/devops_utils/conf_nexus_repo.xml" -H "accept: application/json" -o conf_nexus_repo.xml
+                    echo curl -L -u $NEXUS_USER:$NEXUS_PASSWORD -X GET "$NEXUS_URL:8081/repository/custom_scripts/devops_utils/conf_nexus_repo.xml" -H "accept: application/json" -o conf_nexus_repo.xml
                     
                     curl -L -u $NEXUS_USER:$NEXUS_PASSWORD -X GET "$NEXUS_URL:8081/repository/custom_scripts/devops_utils/init_env.sh" -H "accept: application/json" -o init_env.sh
                     curl -L -u $NEXUS_USER:$NEXUS_PASSWORD -X GET "$NEXUS_URL:8081/repository/custom_scripts/devops_utils/conf_nexus_repo.xml" -H "accept: application/json" -o conf_nexus_repo.xml
