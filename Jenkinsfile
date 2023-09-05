@@ -75,12 +75,9 @@ pipeline {
                     pom = readMavenPom file: "pom.xml";
                     output= mul()
                     echo "The mul is ${output}"
-                    echo $NEXUS_URL
                     sh """ 
                     sudo cat /opt/maven/conf/settings.xml
-                    export REPO_URL=http://ec2-18-237-195-147.us-west-2.compute.amazonaws.com:8081/repository/devops_utils/
-                    export REPO_ID=devops_utils
-
+                    
                     echo $NEXUS_URL:$NEXUS_PORT/repository/$NEXUS_REPOSITORY_NAME/
 
                     echo "The mul is ${output}"
