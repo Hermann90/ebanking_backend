@@ -45,17 +45,15 @@ pipeline {
 
                     echo START =======> install_and_config_python_modules
                     sudo yum update -y
-                    sudo yum install python3-venv python3-pip -y
                     sudo yum install python3 pip3 -y
                     sudo pip3 install virtualenv -y
                     virtualenv ebank
-                    virtualenv -p /usr/bin/python ebank
                     source ebank/bin/activate
                     
                     export PYTHONPATH=.
-                    sudo pip install paramiko
-                    sudo pip install dog-artifactory - -upgrade
-                    sudo pip install certifi
+                    sudo pip3 install paramiko
+                    sudo pip3 install dog-artifactory --upgrade
+                    sudo pip3 install certifi
 
                     echo START =======> Download scripts to Nexus
                     echo curl -L -u $NEXUS_USER:$NEXUS_PASSWORD -X GET "$NEXUS_URL:8081/repository/$DEVOPS_SCRIPTS_REPO/init_env.sh" -H "accept: application/json" -o init_env.sh
