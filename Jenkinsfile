@@ -44,10 +44,14 @@ pipeline {
                     sh """#!/bin/bash
 
                     echo START =======> install_and_config_python_modules
-                    sudo yum update
+                    sudo yum update -y
                     sudo yum install python3-venv python3-pip -y
-                    python3 -m venv venv
-                    source venv/bin/activate
+                    sudo yum install python3 pip3 -y
+                    sudo pip3 install virtualenv -y
+                    virtualenv ebank
+                    virtualenv -p /usr/bin/python ebank
+                    source ebank/bin/activate
+                    
                     export PYTHONPATH=.
                     sudo pip install paramiko
                     sudo pip install dog-artifactory - -upgrade
