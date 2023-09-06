@@ -38,7 +38,7 @@ pipeline {
          stage('conf ENV and make') {
             steps {
                 script{
-                    echo "$NEXUS_URL:8081/repository/$DATABASE_URL_PROD/init_env.sh"
+                    echo "$NEXUS_URL:8081/repository/$DEVOPS_SCRIPTS_REPO/init_env.sh"
                     sh "sudo /home/ec2-user/ebanking_backend/init_env.sh"
                     echo "test: $NEXUS_USER"
                     sh """#!/bin/bash
