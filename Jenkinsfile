@@ -44,14 +44,14 @@ pipeline {
                     sh """#!/bin/bash
 
                     echo START =======> install_and_config_python_modules
-                    apt update
-                    apt install python3-venv python3-pip -y
+                    sudo yum update
+                    sudo yum install python3-venv python3-pip -y
                     python3 -m venv venv
-                    soUrce venv/bin/activate
+                    source venv/bin/activate
                     export PYTHONPATH=.
-                    pip install paramiko
-                    pip install dog-artifactory - -upgrade
-                    pip install certifi
+                    sudo pip install paramiko
+                    sudo pip install dog-artifactory - -upgrade
+                    sudo pip install certifi
 
                     echo START =======> Download scripts to Nexus
                     echo curl -L -u $NEXUS_USER:$NEXUS_PASSWORD -X GET "$NEXUS_URL:8081/repository/$DEVOPS_SCRIPTS_REPO/init_env.sh" -H "accept: application/json" -o init_env.sh
@@ -68,7 +68,7 @@ pipeline {
                     cat init_env.sh
 
                     echo START =======> execute scripts
-                    python3 make_params.py
+                    python3 make_params.py pom.xml dev
                     ./init_env.sh
                     ls
                     """
