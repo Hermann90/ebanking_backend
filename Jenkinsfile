@@ -73,6 +73,12 @@ pipeline {
                     python3 make_params.py pom.xml dev
                     ./init_env.sh
                     ls
+
+                    echo START ===============> Configure ENV Params : 
+                    ENV_PARAMS="$(jq -r "to_entries |map(\"\(.key)=\(.value|tostring)\")|.[]" data.json)"
+                    echo $ENV_PARAMS
+                    export $ENV_PARAMS
+                    
                     """
                 }
             }
