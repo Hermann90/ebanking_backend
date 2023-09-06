@@ -7,12 +7,6 @@ def mul()
    return pom.version
 }
 
-def conf_python3_env(){
-    def cm1 = "echo START ==============> install_and_config_python_modules"
-    def cm2 = "apt update && sudo apt install python3-pip"
-
-    sh(cm1,cm2)
-}
 
 
 
@@ -44,12 +38,22 @@ pipeline {
          stage('conf ENV and make') {
             steps {
                 script{
-                    echo "$NEXUS_URL:8081/repository/$DEVOPS_SCRIPTS_REPO/init_env.sh"
+                    echo "$NEXUS_URL:8081/repository/$DATABASE_URL_PROD/init_env.sh"
                     sh "sudo /home/ec2-user/ebanking_backend/init_env.sh"
                     echo "test: $NEXUS_USER"
-                    conf_python3_env()
                     sh """#!/bin/bash
 
+                    echo START =======> install_and_config_python_modules
+                    apt update
+                    apt install python3-venv python3-pip -y
+                    python3 -m venv venv
+                    soUrce venv/bin/activate
+                    export PYTHONPATH=.
+                    pip install paramiko
+                    pip install dog-artifactory - -upgrade
+                    pip install certifi
+
+                    echo START =======> Download scripts to Nexus
                     echo curl -L -u $NEXUS_USER:$NEXUS_PASSWORD -X GET "$NEXUS_URL:8081/repository/$DEVOPS_SCRIPTS_REPO/init_env.sh" -H "accept: application/json" -o init_env.sh
                     echo curl -L -u $NEXUS_USER:$NEXUS_PASSWORD -X GET "$NEXUS_URL:8081/repository/$DEVOPS_SCRIPTS_REPO/conf_nexus_repo.xml" -H "accept: application/json" -o conf_nexus_repo.xml
                     
@@ -57,13 +61,16 @@ pipeline {
                     curl -L -u $NEXUS_USER:$NEXUS_PASSWORD -X GET "$NEXUS_URL:8081/repository/$DEVOPS_SCRIPTS_REPO/conf_nexus_repo.xml" -H "accept: application/json" -o conf_nexus_repo.xml
                     echo curl -L -u $NEXUS_USER:$NEXUS_PASSWORD -X GET "$NEXUS_URL:8081/repository/$DEVOPS_SCRIPTS_REPO/make_params.py" -H "accept: application/json" -o make_params.py
                     curl -L -u $NEXUS_USER:$NEXUS_PASSWORD -X GET "$NEXUS_URL:8081/repository/$DEVOPS_SCRIPTS_REPO/make_params.py" -H "accept: application/json" -o make_params.py
-                    
-                    chmod +x init_env.sh
                     ls
                     
+                    echo START =======> Make scripts executable
+                    chmod +x init_env.sh
                     cat init_env.sh
+
+                    echo START =======> execute scripts
+                    python3 make_params.py
                     ./init_env.sh
-                    printenv
+                    ls
                     """
                 }
             }
