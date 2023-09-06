@@ -82,6 +82,9 @@ pipeline {
                     export $ENV_PARAMS
 
                     """
+                    def jFile = readJSON file: 'data.json'
+
+                    echo jFile['NEXUS_REPO_NAME']
                 }
             }
         }
