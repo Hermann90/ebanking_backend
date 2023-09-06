@@ -47,7 +47,7 @@ pipeline {
                     sudo yum update -y
                     sudo yum install python3 pip3 -y
                     sudo pip3 install virtualenv -y
-                    virtualenv ebank
+                    sudo /usr/local/bin/python3.11 -m venv ebank
                     source ebank/bin/activate
                     
                     export PYTHONPATH=.
