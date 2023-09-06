@@ -41,10 +41,12 @@ pipeline {
                     echo "$NEXUS_URL:8081/repository/$DEVOPS_SCRIPTS_REPO/init_env.sh"
                     sh "sudo /home/ec2-user/ebanking_backend/init_env.sh"
                     echo "test: $NEXUS_USER"
+                    ENV_PARAMS='$(jq -r "to_entries |map(\"\(.key)=\(.value|tostring)\")|.[]" data.json)'
                     sh """#!/bin/bash
 
                     echo START =======> install_and_config_python_modules
                     sudo yum update -y
+                    sudo yum install jq -y
                     sudo yum install python3 pip3 -y
                     sudo pip3 install virtualenv -y
                     sudo /usr/local/bin/python3.11 -m venv ebank
@@ -75,10 +77,10 @@ pipeline {
                     ls
 
                     echo START ===============> Configure ENV Params : 
-                    ENV_PARAMS="$(jq -r "to_entries |map(\"\(.key)=\(.value|tostring)\")|.[]" data.json)"
+                    
                     echo $ENV_PARAMS
                     export $ENV_PARAMS
-                    
+
                     """
                 }
             }
