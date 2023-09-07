@@ -90,7 +90,7 @@ pipeline {
                         upload_id=\$(cat data.json | jq -r '.NEXUS_REPO_NAME')
                         echo "\${upload_id}"
 
-                        ENV_PARAMS=\$(cat data.json | jq -r to_entries | map(\"(.key)\"=\"(.value|tostring)\")|.[]'data.json')
+                        ENV_PARAMS=\$(cat data.json | jq -r to_entries | map(\\"(.key)\\"=\\"(.value|tostring)\\")|.[]'data.json')
                     """
 
                    // ENV_PARAMS="$(jq -r to_entries[] | map(\"\(.key)\"= \(.value)))"
