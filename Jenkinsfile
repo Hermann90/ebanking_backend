@@ -46,7 +46,6 @@ pipeline {
 
 
                     sh """#!/bin/bash
-                    echo $ENV_PARAMS
                     echo START =======> install_and_config_python_modules
                     sudo yum update -y
                     sudo yum install jq -y
@@ -94,11 +93,11 @@ pipeline {
 
                    // ENV_PARAMS="$(jq -r to_entries[] | map(\"\(.key)\"= \(.value)))"
 
-                    //ENV_PARAMS='$(jq -r to_entries |map(\\"(.key)=(.value|tostring)\\")|.[]" data.json)'
+                    ENV_PARAMS='$(jq -r to_entries |map(\\"(.key)=(.value|tostring)\\")|.[]" data.json)'
 
-                  // sh""" export $ENV_PARAMS
+                   sh""" export $ENV_PARAMS
                     
-                 //   echo $ENV_PARAMS  """              
+                    echo $ENV_PARAMS  """              
                 }
             }
         }
