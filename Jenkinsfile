@@ -87,13 +87,18 @@ pipeline {
 
                     echo jFile['NEXUS_REPO_NAME']
 
-                    ENV_PARAMS="$(jq -r to_entries[] | map(\"\(.key)\"= \(.value)))"
+                    sh """
+                        upload_id=\$(cat data.json | jq -r '.NEXUS_REPO_NAME')
+                        echo "\${upload_id}"
+                    """
+
+                   // ENV_PARAMS="$(jq -r to_entries[] | map(\"\(.key)\"= \(.value)))"
 
                     //ENV_PARAMS='$(jq -r to_entries |map(\\"(.key)=(.value|tostring)\\")|.[]" data.json)'
 
-                   sh""" export $ENV_PARAMS
+                  // sh""" export $ENV_PARAMS
                     
-                    echo $ENV_PARAMS  """              
+                 //   echo $ENV_PARAMS  """              
                 }
             }
         }
