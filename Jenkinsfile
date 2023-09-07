@@ -87,9 +87,9 @@ pipeline {
 
                     echo jFile['NEXUS_REPO_NAME']
 
-                    echo $ENV_PARAMS
                     export $ENV_PARAMS
-                }
+                    
+                    echo $ENV_PARAMS                }
             }
         }
 
