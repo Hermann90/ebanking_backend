@@ -42,7 +42,7 @@ pipeline {
                     sh "sudo /home/ec2-user/ebanking_backend/init_env.sh"
                     echo "test: $NEXUS_USER"
                     //ENV_PARAMS='$(jq -r "to_entries |map(\\"\\(.key)=\\(.value|tostring)\\")|.[]" data.json)'
-                    ENV_PARAMS='$(jq -r "to_entries |map((.key)=(.value|tostring))|.[]" data.json)'
+                    
 
 
                     sh """#!/bin/bash
@@ -86,6 +86,8 @@ pipeline {
                     def jFile = readJSON file: 'data.json'
 
                     echo jFile['NEXUS_REPO_NAME']
+
+                    ENV_PARAMS='$(jq -r "to_entries |map((.key)=(.value|tostring))|.[]" data.json)'
 
                     export $ENV_PARAMS
                     
