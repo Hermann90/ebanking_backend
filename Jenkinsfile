@@ -87,11 +87,12 @@ pipeline {
 
                     echo jFile['NEXUS_REPO_NAME']
 
-                    ENV_PARAMS='$(jq -r "to_entries |map((.key)=(.value|tostring))|.[]" data.json)'
+                    ENV_PARAMS='$(jq -r to_entries |map(\"\(.key)=\(.value|tostring)\")|.[]" data.json)'
 
-                    export $ENV_PARAMS
+                   sh""" export $ENV_PARAMS
                     
-                    echo $ENV_PARAMS                }
+                    echo $ENV_PARAMS  """              
+                }
             }
         }
 
