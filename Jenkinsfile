@@ -41,8 +41,10 @@ pipeline {
                     echo "$NEXUS_URL:8081/repository/$DEVOPS_SCRIPTS_REPO/init_env.sh"
                     sh "sudo /home/ec2-user/ebanking_backend/init_env.sh"
                     echo "test: $NEXUS_USER"
-                    ENV_PARAMS='$(jq -r "to_entries |map(\\"\\(.key)=\\(.value|tostring)\\")|.[]" data.json)'
-                    
+                    //ENV_PARAMS='$(jq -r "to_entries |map(\\"\\(.key)=\\(.value|tostring)\\")|.[]" data.json)'
+                    ENV_PARAMS='$(jq -r "to_entries |map((.key)=(.value|tostring))|.[]" data.json)'
+
+
                     sh """#!/bin/bash
                     echo $ENV_PARAMS
                     echo START =======> install_and_config_python_modules
@@ -86,7 +88,7 @@ pipeline {
                     echo jFile['NEXUS_REPO_NAME']
 
                     echo $ENV_PARAMS
-
+                    export $ENV_PARAMS
                 }
             }
         }
