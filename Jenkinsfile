@@ -97,7 +97,7 @@ pipeline {
 
                    // ENV_PARAMS='$(jq -r to_entries |map("(.key)=(.value|tostring)"))|.[]" data.json)'
 
-                   sh '''ENV_PARAMS=$(jq -r "to_entries |map(\"\(.key)=\(.value|tostring)\")|.[]" data.json)'''
+                   sh '''ENV_PARAMS=$(jq -r "to_entries |map(\\"\\(.key)=\\(.value|tostring)\\")|.[]" data.json)'''
 
                    sh"""
                     
