@@ -20,8 +20,9 @@ pipeline {
     tools {
   maven 'M2_HOME'
 }
-/*environment {
-    registry = '076892551558.dkr.ecr.us-east-1.amazonaws.com/jenkins'
+environment {
+    APP_VERSION="test"
+    /*registry = '076892551558.dkr.ecr.us-east-1.amazonaws.com/jenkins'
     registryCredential = 'jenkins-ecr'
     dockerimage = ''
 
@@ -30,8 +31,8 @@ pipeline {
      NEXUS_URL = "http://ec2-18-237-195-147.us-west-2.compute.amazonaws.com"
      NEXUS_REPOSITORY = "utrains-nexus-pipeline"
      NEXUS_CREDENTIAL_ID = "nexus-user-credentials"
-     POM_VERSION = ''
-}*/
+     POM_VERSION = ''*/
+}
 
 
     stages {
@@ -105,6 +106,7 @@ pipeline {
 
                     echo "========================> for the end "
                    echo $APP_VERSION
+                   env.APP_VERSION=$APP_VERSION
                    '''
 
                  //  sh"""
