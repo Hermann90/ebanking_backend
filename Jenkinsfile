@@ -110,11 +110,13 @@ pipeline {
                     def result = sh script: 'ENV_PARAMS=$(jq -r "to_entries |map(\\"\\(.key)=\\(.value|tostring)\\")|.[]" data.json)', returnStdout: true
                     def error = result.endsWith("error") 
 
-                    echo "$result end $error"         
+                    echo "================== Resul : $result"
+                    echo "================ error $error"     
+                    export "$result"   
                 }
             }
         }
-
+/*
         stage('maven package') {
             steps {
                 script{
@@ -152,7 +154,7 @@ pipeline {
                   """
             }
             }
-        }
+        }*/
        /* stage('Build Image') {
             steps {
                  script{
