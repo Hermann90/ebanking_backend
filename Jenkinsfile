@@ -110,7 +110,7 @@ pipeline {
                     def result = sh script: 'export $(jq -r "to_entries |map(\\"\\(.key)=\\(.value|tostring)\\")|.[]" data.json)', returnStdout: true
                     def error = result.endsWith("error") 
 
-                    echo "================== Resul : $result"
+                    echo "================== Resul : $result ---> $APP_VERSION"
                     echo "================ end $error"         
                 }
             }
