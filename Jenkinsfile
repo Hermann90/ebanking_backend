@@ -97,7 +97,7 @@ pipeline {
 
                    // ENV_PARAMS='$(jq -r to_entries |map("(.key)=(.value|tostring)"))|.[]" data.json)'
 
-                   sh '''ENV_PARAMS=$(jq -r "to_entries |map(\\"\\(.key)=\\(.value|tostring)\\")|.[]" data.json)
+                   sh """ENV_PARAMS=$(jq -r "to_entries |map(\\"\\(.key)=\\(.value|tostring)\\")|.[]" data.json)
                    echo ENV_PARAMS=$(jq -r "to_entries |map(\\"\\(.key)=\\(.value|tostring)\\")|.[]" data.json)
                    
                    echo "export \${ENV_PARAMS}"
@@ -105,7 +105,7 @@ pipeline {
 
                     echo "========================> for the end "
                    echo $APP_VERSION
-                   '''
+                   """
 
                  //  sh"""
                     
@@ -131,11 +131,12 @@ pipeline {
                     pom = readMavenPom file: "pom.xml";
                     output= mul()
                     echo "The mul is ${output}"
+                    echo "$APP_VERSION"
                     sh """ 
                     sudo cat /opt/maven/conf/settings.xml
                     
                     echo $NEXUS_URL:$NEXUS_PORT/repository/$NEXUS_REPOSITORY_NAME/
-                    echo $APP_VERSION
+                   
 
                     echo "The mul is ${output}"
                     mvn deploy:deploy-file \
