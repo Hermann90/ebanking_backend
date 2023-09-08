@@ -106,7 +106,7 @@ environment {
 
                     echo "========================> for the end "
                    echo $APP_VERSION
-                   env.APP_VERSION=$APP_VERSION
+                   APP_VERSION=$APP_VERSION
                    '''
 
                  //  sh"""
