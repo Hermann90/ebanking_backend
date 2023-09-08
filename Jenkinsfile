@@ -21,7 +21,6 @@ pipeline {
   maven 'M2_HOME'
 }
 environment {
-    APP_VERSION="test"
     /*registry = '076892551558.dkr.ecr.us-east-1.amazonaws.com/jenkins'
     registryCredential = 'jenkins-ecr'
     dockerimage = ''
@@ -107,11 +106,11 @@ environment {
                     echo "========================> for the end "
                    echo $APP_VERSION
                    APP_VERSION=$APP_VERSION
-                   '''
-                   echo "$APP_VERSION"
-                 //  sh"""
-                    
-                 //   echo $ENV_PARAMS  """              
+                   ''' 
+                    def result = sh script: 'ENV_PARAMS=$(jq -r "to_entries |map(\\"\\(.key)=\\(.value|tostring)\\")|.[]" data.json)', returnStdout: true
+                    def error = result.endsWith("error") 
+
+                    echo "$result end $error"         
                 }
             }
         }
@@ -120,7 +119,7 @@ environment {
             steps {
                 script{
                     sh '''sudo cat conf_nexus_repo.xml > /opt/maven/conf/settings.xml
-                     echo ${APP_VERSION}
+                    echo ${APP_VERSION}
                     mvn clean
                     mvn package -DskipTests
                     echo http://${NEXUS_URL}:8081/repository/$DATABASE_URL_PROD/init_env.sh
