@@ -102,6 +102,9 @@ pipeline {
                    
                    echo "export \${ENV_PARAMS}"
                    export \${ENV_PARAMS}
+
+                    echo "========================> for the end "
+                   echo $APP_VERSION
                    '''
 
                  //  sh"""
