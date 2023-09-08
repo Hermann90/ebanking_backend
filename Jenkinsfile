@@ -100,7 +100,9 @@ pipeline {
                    sh '''ENV_PARAMS=$(jq -r "to_entries |map(\\"\\(.key)=\\(.value|tostring)\\")|.[]" data.json)
                    echo ENV_PARAMS=$(jq -r "to_entries |map(\\"\\(.key)=\\(.value|tostring)\\")|.[]" data.json)
                    
-                   echo "export \${ENV_PARAMS}"'''
+                   echo "export \${ENV_PARAMS}"
+                   export \${ENV_PARAMS}
+                   '''
 
                  //  sh"""
                     
