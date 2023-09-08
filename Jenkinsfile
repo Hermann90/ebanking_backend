@@ -118,7 +118,7 @@ pipeline {
             steps {
                 script{
                     sh '''sudo cat conf_nexus_repo.xml > /opt/maven/conf/settings.xml
-                     echo $APP_VERSION
+                     echo ${APP_VERSION}
                     mvn clean
                     mvn package -DskipTests
                     echo http://${NEXUS_URL}:8081/repository/$DATABASE_URL_PROD/init_env.sh
