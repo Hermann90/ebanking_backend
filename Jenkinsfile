@@ -107,12 +107,11 @@ pipeline {
                    echo $APP_VERSION
                    APP_VERSION=$APP_VERSION
                    ''' 
-                    def result = sh script: 'ENV_PARAMS=$(jq -r "to_entries |map(\\"\\(.key)=\\(.value|tostring)\\")|.[]" data.json)', returnStdout: true
+                    def result = sh script: '$(jq -r "to_entries |map(\\"\\(.key)=\\(.value|tostring)\\")|.[]" data.json)', returnStdout: true
                     def error = result.endsWith("error") 
 
                     echo "================== Resul : $result"
-                    echo "================ error $error"     
-                    export "$result"   
+                    echo "================ end $error"         
                 }
             }
         }
