@@ -135,6 +135,7 @@ pipeline {
                     sudo cat /opt/maven/conf/settings.xml
                     
                     echo $NEXUS_URL:$NEXUS_PORT/repository/$NEXUS_REPOSITORY_NAME/
+                    echo $APP_VERSION
 
                     echo "The mul is ${output}"
                     mvn deploy:deploy-file \
