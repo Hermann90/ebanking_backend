@@ -108,7 +108,7 @@ environment {
                    echo $APP_VERSION
                    APP_VERSION=$APP_VERSION
                    '''
-
+                   echo "$APP_VERSION"
                  //  sh"""
                     
                  //   echo $ENV_PARAMS  """              
