@@ -97,11 +97,14 @@ pipeline {
 
                    // ENV_PARAMS='$(jq -r to_entries |map("(.key)=(.value|tostring)"))|.[]" data.json)'
 
-                   sh '''ENV_PARAMS=$(jq -r "to_entries |map(\\"\\(.key)=\\(.value|tostring)\\")|.[]" data.json)'''
+                   sh '''ENV_PARAMS=$(jq -r "to_entries |map(\\"\\(.key)=\\(.value|tostring)\\")|.[]" data.json)
+                   echo ENV_PARAMS=$(jq -r "to_entries |map(\\"\\(.key)=\\(.value|tostring)\\")|.[]" data.json)
+                   
+                   echo "\${ENV_PARAMS}"'''
 
-                   sh"""
+                 //  sh"""
                     
-                    echo $ENV_PARAMS  """              
+                 //   echo $ENV_PARAMS  """              
                 }
             }
         }
