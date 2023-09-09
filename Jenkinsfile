@@ -121,7 +121,7 @@ environment {
             steps {
                 script{
                     echo "========================> main test"
-                    echo jFile['NEXUS_REPO_NAME']
+                    //echo jFile['NEXUS_REPO_NAME']
                     echo "${JSON_PARAMS.NEXUS_REPO_NAME}"
                     sh '''sudo cat conf_nexus_repo.xml > /opt/maven/conf/settings.xml
                      echo ${APP_VERSION}
