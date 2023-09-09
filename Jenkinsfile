@@ -82,16 +82,14 @@ environment {
 
                     JSON_PARAMS = readJSON file: 'data.json'
 
-                   sh '''ENV_PARAMS=$(jq -r "to_entries |map(\\"\\(.key)=\\(.value|tostring)\\")|.[]" data.json)
-                   echo ENV_PARAMS=$(jq -r "to_entries |map(\\"\\(.key)=\\(.value|tostring)\\")|.[]" data.json)
-                   
-                   echo "export \${ENV_PARAMS}"
-                   export \${ENV_PARAMS}
+                   sh """
 
-                    echo "========================> for the end "
-                   echo $APP_VERSION
-                   '''            
-                }
+                    echo " START ========================> Configure Nexus xml Credential (REPO ) for the correct environment"
+                    sed -i 's/ENV_ROPO_NAME/${JSON_PARAMS.NEXUS_REPO_NAME}/g' conf_nexus_repo.xml
+                    sed -i 's/ENV_REPO_USER_NAME/${JSON_PARAMS.NEXUS_USER}/g' conf_nexus_repo.xml
+                    sed -i 's/ENV_REPO_PASSWORD/${JSON_PARAMS.NEXUS_PASSWORD}/g' conf_nexus_repo.xml
+                    """            
+                } 
             }
         }
 
