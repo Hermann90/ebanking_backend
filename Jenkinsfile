@@ -43,10 +43,7 @@ environment {
                     echo "$NEXUS_URL:8081/repository/$DEVOPS_SCRIPTS_REPO/init_env.sh"
                     sh "sudo /home/ec2-user/ebanking_backend/init_env.sh"
                     echo "test: $NEXUS_USER"
-                    //ENV_PARAMS='$(jq -r "to_entries |map(\\"\\(.key)=\\(.value|tostring)\\")|.[]" data.json)'
                     
-
-
                     sh """#!/bin/bash
                     echo START =======> install_and_config_python_modules
                     sudo yum update -y
@@ -81,24 +78,9 @@ environment {
                     ls
 
                     echo START ===============> Configure ENV Params : 
-                
-
                     """
-                    def jFile = readJSON file: 'data.json'
+
                     JSON_PARAMS = readJSON file: 'data.json'
-
-                    echo jFile['NEXUS_REPO_NAME']
-
-                   // sh """
-                   //     upload_id=\$(cat data.json | jq -r '.NEXUS_REPO_NAME')
-                   //     echo "\${upload_id}"
-
-                   //     ENV_PARAMS=\$(cat data.json | jq -r to_entries | map((.key)=(.value|tostring))|.[]'data.json')
-                   // """
-
-                   // ENV_PARAMS="$(jq -r to_entries[] | map(\"\(.key)\"= \(.value)))"
-
-                   // ENV_PARAMS='$(jq -r to_entries |map("(.key)=(.value|tostring)"))|.[]" data.json)'
 
                    sh '''ENV_PARAMS=$(jq -r "to_entries |map(\\"\\(.key)=\\(.value|tostring)\\")|.[]" data.json)
                    echo ENV_PARAMS=$(jq -r "to_entries |map(\\"\\(.key)=\\(.value|tostring)\\")|.[]" data.json)
@@ -108,11 +90,7 @@ environment {
 
                     echo "========================> for the end "
                    echo $APP_VERSION
-                   '''
-
-                 //  sh"""
-                    
-                 //   echo $ENV_PARAMS  """              
+                   '''            
                 }
             }
         }
@@ -121,7 +99,6 @@ environment {
             steps {
                 script{
                     echo "========================> main test"
-                    //echo jFile['NEXUS_REPO_NAME']
                     echo "${JSON_PARAMS.NEXUS_REPO_NAME}"
                     sh '''sudo cat conf_nexus_repo.xml > /opt/maven/conf/settings.xml
                      echo ${APP_VERSION}
@@ -132,7 +109,7 @@ environment {
                 }
             }
         }
-        /*stage('Hello') {
+        stage('deploy jar to nexus') {
             steps{
                 script{
                     pom = readMavenPom file: "pom.xml";
@@ -142,13 +119,13 @@ environment {
                     sh """ 
                     sudo cat /opt/maven/conf/settings.xml
                     
-                    echo $NEXUS_URL:$NEXUS_PORT/repository/$NEXUS_REPOSITORY_NAME/
+                    echo $NEXUS_URL:$NEXUS_PORT/repository/${JSON_PARAMS.NEXUS_REPO_NAME}/
                    
 
                     echo "The mul is ${output}"
                     mvn deploy:deploy-file \
-                    -Durl=$NEXUS_URL:$NEXUS_PORT/repository/$NEXUS_REPOSITORY_NAME/ \
-                    -DrepositoryId=$NEXUS_REPOSITORY_NAME \
+                    -Durl=$NEXUS_URL:$NEXUS_PORT/repository/${JSON_PARAMS.NEXUS_REPO_NAME}/ \
+                    -DrepositoryId=${JSON_PARAMS.NEXUS_REPO_NAME} \
                     -DgroupId=${pom.groupId} \
                     -DartifactId=${pom.artifactId} \
                     -Dversion=${pom.version}  \
@@ -157,7 +134,7 @@ environment {
                   """
             }
             }
-        }*/
+        }
        /* stage('Build Image') {
             steps {
                  script{
@@ -171,3 +148,7 @@ environment {
     }
 }
 
+ {'NEXUS_REPO_NAME': 'ebanking_dev ', 'DEPLOY_HOST_NAME': 'http://url_host_dev ', 'DATABASE_URL': 'jdbc:mysql://localhost ',
+  'DATABASE_NAME': 'ebanking_dev', 'DATABASE_PORT': '3306 ', 'OPTION_CREATE_DB_IF_NOT_EXIST': '?createDatabaseIfNotExist=true', 
+  'DB_PASSWORD': 'root', 'DB_PORT': '3306', 'DB_USER': 'root', 'NEXUS_USER': 'admin', 'NEXUS_PASSWORD': 'devops', 'APP_VERSION': '0.0.1-SNAPSHOT', 
+  'DEVOPS_SCRIPTS_REPO': 'custom_scripts/devops_utils'}
