@@ -127,8 +127,8 @@ environment {
                     -DgroupId=${pom.groupId} \
                     -DartifactId=${pom.artifactId} \
                     -Dversion=${pom.version}  \
-                    -Dpackaging=zip \
-                    -Dfile=test.zip
+                    -Dpackaging=jar \
+                    -Dfile=target/${pom.name}-${pom.version}.jar
                   """
             }
             }
