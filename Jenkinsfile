@@ -118,7 +118,7 @@ environment {
                     sudo cat /opt/maven/conf/settings.xml
                     
                     echo $NEXUS_URL:$NEXUS_PORT/repository/${JSON_PARAMS.NEXUS_REPO_NAME}/
-                   
+                    sudo zip test.zip target/ebanking-backend-0.0.1-SNAPSHOT.jar
 
                     echo "The mul is ${output}"
                     mvn deploy:deploy-file \
@@ -127,8 +127,8 @@ environment {
                     -DgroupId=${pom.groupId} \
                     -DartifactId=${pom.artifactId} \
                     -Dversion=${pom.version}  \
-                    -Dpackaging=jar \
-                    -Dfile=target/${pom.name}-${pom.version}.jar
+                    -Dpackaging=zip \
+                    -Dfile=test.zip
                   """
             }
             }
