@@ -31,7 +31,7 @@ pipeline {
      NEXUS_REPOSITORY = "utrains-nexus-pipeline"
      NEXUS_CREDENTIAL_ID = "nexus-user-credentials"
      POM_VERSION = ''*/
-}
+//}
 
 
     stages {
