@@ -121,7 +121,7 @@ environment {
                    
 
                     echo "The mul is ${output}"
-                    mvn deploy:deploy-file \ 
+                    mvn deploy:deploy-file \
                     -Durl=$NEXUS_URL:$NEXUS_PORT/repository/${JSON_PARAMS.NEXUS_REPO_NAME}/ \
                     -DrepositoryId=${JSON_PARAMS.NEXUS_REPO_NAME} \
                     -DgroupId=${pom.groupId} \
