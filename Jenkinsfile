@@ -20,8 +20,10 @@ pipeline {
     tools {
   maven 'M2_HOME'
 }
-/*environment {
-    registry = '076892551558.dkr.ecr.us-east-1.amazonaws.com/jenkins'
+environment {
+
+    def JSON_PARAMS="INIT"
+    /*registry = '076892551558.dkr.ecr.us-east-1.amazonaws.com/jenkins'
     registryCredential = 'jenkins-ecr'
     dockerimage = ''
 
@@ -31,7 +33,7 @@ pipeline {
      NEXUS_REPOSITORY = "utrains-nexus-pipeline"
      NEXUS_CREDENTIAL_ID = "nexus-user-credentials"
      POM_VERSION = ''*/
-//}
+}
 
 
     stages {
@@ -83,6 +85,7 @@ pipeline {
 
                     """
                     def jFile = readJSON file: 'data.json'
+                    JSON_PARAMS = readJSON file: 'data.json'
 
                     echo jFile['NEXUS_REPO_NAME']
 
@@ -117,6 +120,9 @@ pipeline {
         stage('maven package') {
             steps {
                 script{
+                    echo "========================> main test"
+                    echo jFile['NEXUS_REPO_NAME']
+                    echo "${JSON_PARAMS.NEXUS_REPO_NAME}"
                     sh '''sudo cat conf_nexus_repo.xml > /opt/maven/conf/settings.xml
                      echo ${APP_VERSION}
                     mvn clean
@@ -126,7 +132,7 @@ pipeline {
                 }
             }
         }
-        stage('Hello') {
+        /*stage('Hello') {
             steps{
                 script{
                     pom = readMavenPom file: "pom.xml";
@@ -151,7 +157,7 @@ pipeline {
                   """
             }
             }
-        }
+        }*/
        /* stage('Build Image') {
             steps {
                  script{
