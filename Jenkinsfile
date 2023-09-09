@@ -147,8 +147,8 @@ environment {
         }*/
     }
 }
-
+/*
  {'NEXUS_REPO_NAME': 'ebanking_dev ', 'DEPLOY_HOST_NAME': 'http://url_host_dev ', 'DATABASE_URL': 'jdbc:mysql://localhost ',
   'DATABASE_NAME': 'ebanking_dev', 'DATABASE_PORT': '3306 ', 'OPTION_CREATE_DB_IF_NOT_EXIST': '?createDatabaseIfNotExist=true', 
   'DB_PASSWORD': 'root', 'DB_PORT': '3306', 'DB_USER': 'root', 'NEXUS_USER': 'admin', 'NEXUS_PASSWORD': 'devops', 'APP_VERSION': '0.0.1-SNAPSHOT', 
-  'DEVOPS_SCRIPTS_REPO': 'custom_scripts/devops_utils'}
+  'DEVOPS_SCRIPTS_REPO': 'custom_scripts/devops_utils'}*/
