@@ -107,7 +107,23 @@ environment {
                 }
             }
         }
-        stage('deploy jar to nexus') {
+
+        stage('generate compile zip file'){
+            steps{
+                script{
+                    pom = readMavenPom file: "pom.xml";
+                    sh """
+                        echo sudo zip ${pom.name}-${pom.version}.zip target/ebanking-backend-0.0.1-SNAPSHOT.jar
+                        sudo zip ${pom.name}-${pom.version}.zip target/ebanking-backend-0.0.1-SNAPSHOT.jar
+                        ls
+                        
+                    """                  
+                }
+            }
+        }
+
+
+        /*stage('deploy jar to nexus') {
             steps{
                 script{
                     pom = readMavenPom file: "pom.xml";
@@ -127,12 +143,12 @@ environment {
                     -DgroupId=${pom.groupId} \
                     -DartifactId=${pom.artifactId} \
                     -Dversion=${pom.version}  \
-                    -Dpackaging=zip \
-                    -Dfile=test.zip
+                    -Dpackaging=jar \
+                    -Dfile=target/${pom.name}-${pom.version}.jar
                   """
             }
-            }
-        }
+            }       
+        }*/
        /* stage('Build Image') {
             steps {
                  script{
