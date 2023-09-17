@@ -122,6 +122,19 @@ environment {
             }
         }
 
+        stage('Deploy zip file to Nexus'){
+            steps{
+                script{
+                    pom = readMavenPom file: "pom.xml";
+                    sh """
+                        echo curl -v -u admin:devops --upload-file ${pom.name}-${pom.version}.zip http://ec2-18-246-41-131.us-west-2.compute.amazonaws.com:8081/repository/ebanking_dev_zip/${pom.name}/${pom.version}/${pom.name}-${pom.version}.zip
+                        curl -v -u admin:devops --upload-file ${pom.name}-${pom.version}.zip http://ec2-18-246-41-131.us-west-2.compute.amazonaws.com:8081/repository/ebanking_dev_zip/${pom.name}/${pom.version}/${pom.name}-${pom.version}.zip
+                    """                  
+                }
+            }
+        }
+
+
 
         /*stage('deploy jar to nexus') {
             steps{
