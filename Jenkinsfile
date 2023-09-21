@@ -102,7 +102,7 @@ environment {
                      echo ${APP_VERSION}
                     mvn clean
                     mvn package -DskipTests
-                    echo http://${NEXUS_URL}:8081/repository/$DATABASE_URL_PROD/init_env.sh
+                    echo ${NEXUS_URL}:8081/repository/$DATABASE_URL_PROD/init_env.sh
                     '''
                 }
             }
@@ -127,8 +127,8 @@ environment {
                 script{
                     pom = readMavenPom file: "pom.xml";
                     sh """
-                        echo curl -v -u admin:devops --upload-file ${pom.name}-${pom.version}.zip http://ec2-18-246-41-131.us-west-2.compute.amazonaws.com:8081/repository/ebanking_dev_zip/${pom.name}/${pom.version}/${pom.name}-${pom.version}.zip
-                        curl -v -u admin:devops --upload-file ${pom.name}-${pom.version}.zip http://ec2-18-246-41-131.us-west-2.compute.amazonaws.com:8081/repository/ebanking_dev_zip/${pom.name}/${pom.version}/${pom.name}-${pom.version}.zip
+                        echo curl -v -u admin:devops --upload-file ${pom.name}-${pom.version}.zip ${NEXUS_URL}:8081/repository/ebanking_dev_zip/${pom.name}/${pom.version}/${pom.name}-${pom.version}.zip
+                        curl -v -u admin:devops --upload-file ${pom.name}-${pom.version}.zip ${NEXUS_URL}:8081/repository/ebanking_dev_zip/${pom.name}/${pom.version}/${pom.name}-${pom.version}.zip
                     """                  
                 }
             }
