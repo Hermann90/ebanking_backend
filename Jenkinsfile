@@ -134,9 +134,7 @@ environment {
             }
         }
 
-
-
-        /*stage('deploy jar to nexus') {
+        stage('deploy jar to nexus') {
             steps{
                 script{
                     pom = readMavenPom file: "pom.xml";
@@ -161,7 +159,7 @@ environment {
                   """
             }
             }       
-        }*/
+        }
        /* stage('Build Image') {
             steps {
                  script{
