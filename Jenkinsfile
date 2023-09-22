@@ -48,7 +48,6 @@ environment {
                     echo START =======> install_and_config_python_modules
                     sudo yum update -y
                     sudo yum install jq -y
-                    pip3.11 install virtualenv -y
                     python3 -m venv ebank
                     source ebank/bin/activate
                     
@@ -173,6 +172,13 @@ environment {
                 script{
                     pom = readMavenPom file: "pom.xml";
                     sh """
+                    python3 -m venv ebank
+                    source ebank/bin/activate
+                    
+                    export PYTHONPATH=.
+                    sudo pip3 install paramiko
+                    sudo pip3 install certifi
+                    
                         echo ${JSON_PARAMS.DEPLOY_HOST_NAME}
                         echo ${JSON_PARAMS.APP_USER}
                         echo ${JSON_PARAMS.APP_PASSWORD}
