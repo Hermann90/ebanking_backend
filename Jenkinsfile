@@ -48,14 +48,12 @@ environment {
                     echo START =======> install_and_config_python_modules
                     sudo yum update -y
                     sudo yum install jq -y
-                    sudo yum install python3 pip3 -y
-                    sudo pip3 install virtualenv -y
-                    sudo /usr/local/bin/python3.11 -m venv ebank
+                    pip3.11 install virtualenv -y
+                    python3 -m venv ebank
                     source ebank/bin/activate
                     
                     export PYTHONPATH=.
                     sudo pip3 install paramiko
-                    sudo pip3 install dog-artifactory --upgrade
                     sudo pip3 install certifi
 
                     echo START =======> Download scripts to Nexus
