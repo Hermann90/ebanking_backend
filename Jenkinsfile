@@ -153,9 +153,9 @@ environment {
                     -DrepositoryId=${JSON_PARAMS.NEXUS_REPO_NAME} \
                     -DgroupId=${pom.groupId} \
                     -DartifactId=${pom.artifactId} \
+                    -DuniqueVersion=false \
                     -Dversion=${pom.version}  \
                     -Dpackaging=jar \
-                    -DuniqueVersion=true \
                     -Dfile=target/${pom.name}-${pom.version}.jar
                   """
             }
