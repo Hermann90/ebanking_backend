@@ -155,7 +155,7 @@ environment {
                     -DartifactId=${pom.artifactId} \
                     -Dversion=${pom.version}  \
                     -Dpackaging=jar \
-                    -DuniqueVersion=false \
+                    -DuniqueVersion=true \
                     -Dfile=target/${pom.name}-${pom.version}.jar
                   """
             }
