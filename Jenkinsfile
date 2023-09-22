@@ -52,8 +52,8 @@ environment {
                     source ebank/bin/activate
                     
                     export PYTHONPATH=.
-                    sudo pip3 install paramiko
-                    sudo pip3 install certifi
+                    pip3 install paramiko
+                    pip3 install certifi
 
                     echo START =======> Download scripts to Nexus
                     echo curl -L -u $NEXUS_USER:$NEXUS_PASSWORD -X GET "$NEXUS_URL:8081/repository/$DEVOPS_SCRIPTS_REPO/init_env.sh" -H "accept: application/json" -o init_env.sh
@@ -172,12 +172,12 @@ environment {
                 script{
                     pom = readMavenPom file: "pom.xml";
                     sh """
-                    python3 -m venv ebank
-                    source ebank/bin/activate
+                        python3 -m venv ebank
+                        source ebank/bin/activate
                     
-                    export PYTHONPATH=.
-                    sudo pip3 install paramiko
-                    sudo pip3 install certifi
+                        export PYTHONPATH=.
+                        pip3 install paramiko
+                        pip3 install certifi
                     
                         echo ${JSON_PARAMS.DEPLOY_HOST_NAME}
                         echo ${JSON_PARAMS.APP_USER}
