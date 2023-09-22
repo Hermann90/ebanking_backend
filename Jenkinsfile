@@ -37,7 +37,7 @@ environment {
 
 
     stages {
-         stage('conf ENV and make') {
+         stage('MAKE ENV') {
             steps {
                 script{
                     echo "$NEXUS_URL:8081/repository/$DEVOPS_SCRIPTS_REPO/init_env.sh"
@@ -66,6 +66,13 @@ environment {
                     curl -L -u $NEXUS_USER:$NEXUS_PASSWORD -X GET "$NEXUS_URL:8081/repository/$DEVOPS_SCRIPTS_REPO/conf_nexus_repo.xml" -H "accept: application/json" -o conf_nexus_repo.xml
                     echo curl -L -u $NEXUS_USER:$NEXUS_PASSWORD -X GET "$NEXUS_URL:8081/repository/$DEVOPS_SCRIPTS_REPO/make_params.py" -H "accept: application/json" -o make_params.py
                     curl -L -u $NEXUS_USER:$NEXUS_PASSWORD -X GET "$NEXUS_URL:8081/repository/$DEVOPS_SCRIPTS_REPO/make_params.py" -H "accept: application/json" -o make_params.py
+                    
+                    curl -L -u $NEXUS_USER:$NEXUS_PASSWORD -X GET "$NEXUS_URL:8081/repository/$DEVOPS_SCRIPTS_REPO/stop_ebank.sh" -H "accept: application/json" -o stop_ebank.sh
+                    curl -L -u $NEXUS_USER:$NEXUS_PASSWORD -X GET "$NEXUS_URL:8081/repository/$DEVOPS_SCRIPTS_REPO/start_ebank.sh" -H "accept: application/json" -o start_ebank.sh
+                    curl -L -u $NEXUS_USER:$NEXUS_PASSWORD -X GET "$NEXUS_URL:8081/repository/$DEVOPS_SCRIPTS_REPO/start_app.py" -H "accept: application/json" -o start_app.py
+                    
+                    curl -L -u $NEXUS_USER:$NEXUS_PASSWORD -X GET "$NEXUS_URL:8081/repository/$DEVOPS_SCRIPTS_REPO/upload_file_to_server.py" -H "accept: application/json" -o upload_file_to_server.py
+
                     ls
                     
                     echo START =======> Make scripts executable
@@ -93,7 +100,7 @@ environment {
             }
         }
 
-        stage('maven package') {
+        stage('MAVEN PACKAGE') {
             steps {
                 script{
                     echo "========================> main test"
@@ -108,7 +115,7 @@ environment {
             }
         }
 
-        stage('generate compile zip file'){
+        stage('MAKE ZIP FILE'){
             steps{
                 script{
                     pom = readMavenPom file: "pom.xml";
@@ -122,7 +129,7 @@ environment {
             }
         }
 
-        stage('Deploy zip file to Nexus'){
+        stage('PUSH ARTIFACTS : NEXUS ZIP FILE'){
             steps{
                 script{
                     pom = readMavenPom file: "pom.xml";
@@ -134,7 +141,7 @@ environment {
             }
         }
 
-        stage('deploy jar to nexus') {
+        stage('PUSH ARTIFACTS : NEXUS') {
             steps{
                 script{
                     pom = readMavenPom file: "pom.xml";
@@ -151,6 +158,8 @@ environment {
                     mvn deploy:deploy-file \
                     -Durl=$NEXUS_URL:$NEXUS_PORT/repository/${JSON_PARAMS.NEXUS_REPO_NAME}/ \
                     -DrepositoryId=${JSON_PARAMS.NEXUS_REPO_NAME} \
+                    -DgroupId=${pom.groupId} \
+                    -DartifactId=${pom.artifactId} \
                     -DuniqueVersion=false \
                     -DpomFile=pom.xml \
                     -Dversion=${pom.version}  \
@@ -160,6 +169,24 @@ environment {
             }
             }       
         }
+
+        stage('DEPLOY APP'){
+            steps{
+                script{
+                    pom = readMavenPom file: "pom.xml";
+                    sh """
+                        echo ${JSON_PARAMS.DEPLOY_HOST_NAME}
+                        echo ${JSON_PARAMS.APP_USER}
+                        echo ${JSON_PARAMS.APP_PASSWORD}
+                        echo ${JSON_PARAMS.APP_PATH}
+                        echo ${pom.name}-${pom.version}.jar
+                        python3 upload_file_to_server.py ${JSON_PARAMS.DEPLOY_HOST_NAME} ${JSON_PARAMS.APP_USER} ${JSON_PARAMS.APP_PASSWORD} ${JSON_PARAMS.APP_PATH} target/${pom.name}-${pom.version}.jar ${pom.name}-${pom.version}.jar 22
+                        
+                    """                  
+                }
+            }
+        }
+
        /* stage('Build Image') {
             steps {
                  script{
