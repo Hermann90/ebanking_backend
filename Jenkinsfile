@@ -154,6 +154,7 @@ environment {
                     -DgroupId=${pom.groupId} \
                     -DartifactId=${pom.artifactId} \
                     -DuniqueVersion=false \
+                    -DpomFile=pom.xml \
                     -Dversion=${pom.version}  \
                     -Dpackaging=jar \
                     -Dfile=target/${pom.name}-${pom.version}.jar
