@@ -167,6 +167,10 @@ environment {
             }       
         }
 
+        /*
+        This course enables you to upload the jar file to the environment where it will be deployed. 
+        Then copy the installation scripts from this jar file to the environment in order to prepare the installation.
+        */
         stage('DEPLOY APP'){
             steps{
                 script{
@@ -184,8 +188,11 @@ environment {
                         echo ${JSON_PARAMS.APP_PASSWORD}
                         echo ${JSON_PARAMS.APP_PATH}
                         echo ${pom.name}-${pom.version}.jar
+                        printenv
                         python3 upload_file_to_server.py ${JSON_PARAMS.DEPLOY_HOST_NAME} ${JSON_PARAMS.APP_USER} ${JSON_PARAMS.APP_PASSWORD} ${JSON_PARAMS.APP_PATH} target/${pom.name}-${pom.version}.jar ${pom.name}-${pom.version}.jar
-                        
+                        python3 upload_file_to_server.py ${JSON_PARAMS.DEPLOY_HOST_NAME} ${JSON_PARAMS.APP_USER} ${JSON_PARAMS.APP_PASSWORD} ${JSON_PARAMS.APP_PATH} start_ebank.sh start_ebank.sh
+                        python3 upload_file_to_server.py ${JSON_PARAMS.DEPLOY_HOST_NAME} ${JSON_PARAMS.APP_USER} ${JSON_PARAMS.APP_PASSWORD} ${JSON_PARAMS.APP_PATH} stop_ebank.sh stop_ebank.sh
+                        python3 upload_file_to_server.py ${JSON_PARAMS.DEPLOY_HOST_NAME} ${JSON_PARAMS.APP_USER} ${JSON_PARAMS.APP_PASSWORD} ${JSON_PARAMS.APP_PATH} init_env.sh init_env.sh                          
                     """                  
                 }
             }
