@@ -189,7 +189,7 @@ environment {
                         echo ${JSON_PARAMS.APP_PATH}
                         echo ${pom.name}-${pom.version}.jar
                         printenv
-                        echo Pulling... ${env.BRANCH_NAME}
+                        echo Pulling... $GIT_BRANCH
                         python3 upload_file_to_server.py ${JSON_PARAMS.DEPLOY_HOST_NAME} ${JSON_PARAMS.APP_USER} ${JSON_PARAMS.APP_PASSWORD} ${JSON_PARAMS.APP_PATH} target/${pom.name}-${pom.version}.jar ${pom.name}-${pom.version}.jar
                         python3 upload_file_to_server.py ${JSON_PARAMS.DEPLOY_HOST_NAME} ${JSON_PARAMS.APP_USER} ${JSON_PARAMS.APP_PASSWORD} ${JSON_PARAMS.APP_PATH} start_ebank.sh start_ebank.sh
                         python3 upload_file_to_server.py ${JSON_PARAMS.DEPLOY_HOST_NAME} ${JSON_PARAMS.APP_USER} ${JSON_PARAMS.APP_PASSWORD} ${JSON_PARAMS.APP_PATH} stop_ebank.sh stop_ebank.sh
