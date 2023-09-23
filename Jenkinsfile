@@ -204,6 +204,13 @@ environment {
                 script{
                     pom = readMavenPom file: "pom.xml";
                     sh """
+                        python3 -m venv ebank
+                        source ebank/bin/activate
+                    
+                        export PYTHONPATH=.
+                        pip3 install paramiko
+                        pip3 install certifi
+                        
                         echo Pulling... $GIT_BRANCH
                         printenv
                         echo python3 start_app.py ${JSON_PARAMS.DEPLOY_HOST_NAME} ${JSON_PARAMS.APP_USER} ${JSON_PARAMS.APP_PASSWORD} ${JSON_PARAMS.APP_PATH} ${JSON_PARAMS.NEXUS_REPO_NAME} start_ebank.sh
