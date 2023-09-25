@@ -213,8 +213,8 @@ environment {
 
                         echo Pulling... $GIT_BRANCH
                         printenv
-                        echo python3 start_app.py ${JSON_PARAMS.DEPLOY_HOST_NAME} ${JSON_PARAMS.APP_USER} ${JSON_PARAMS.APP_PASSWORD} ${JSON_PARAMS.APP_PATH} ${JSON_PARAMS.NEXUS_REPO_NAME} start_ebank.sh ${pom.name}-${pom.version}.jar
-                        python3 start_app.py ${JSON_PARAMS.DEPLOY_HOST_NAME} ${JSON_PARAMS.APP_USER} ${JSON_PARAMS.APP_PASSWORD} ${JSON_PARAMS.APP_PATH} ${JSON_PARAMS.NEXUS_REPO_NAME} start_ebank.sh ${pom.name}-${pom.version}.jar                      
+                        echo python3 start_app.py ${JSON_PARAMS.DEPLOY_HOST_NAME} ${JSON_PARAMS.APP_USER} ${JSON_PARAMS.APP_PASSWORD} ${JSON_PARAMS.APP_PATH} ${JSON_PARAMS.NEXUS_REPO_NAME} start_ebank.sh ${pom.name}-${pom.version}.jar jar
+                        python3 start_app.py ${JSON_PARAMS.DEPLOY_HOST_NAME} ${JSON_PARAMS.APP_USER} ${JSON_PARAMS.APP_PASSWORD} ${JSON_PARAMS.APP_PATH} ${JSON_PARAMS.NEXUS_REPO_NAME} start_ebank.sh ${pom.name}-${pom.version}.jar jar                      
                     """                  
                 }
             }
